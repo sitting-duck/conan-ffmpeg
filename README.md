@@ -7,7 +7,7 @@
 
 The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/squawkcpp/conan-cpp/ffmpeg%3Aconan-cpp).
 
-## For Users: Use this package
+## Use this package
 
 ### Basic setup
 
