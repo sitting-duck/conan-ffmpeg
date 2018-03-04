@@ -1,0 +1,18 @@
+sudo: required 
+language: cpp
+services:
+  - docker
+env:
+  global:
+    secure: "kx0qcXyejh9XgJZh9lphBabu0A6ZV7dvm28HRzxVexXxqTQomhdG+4WrQfL7uU5sKEV6d+vuggp9FQ4vWzFoppURnJw3+Thu8sHQ3MgJwmP1OljLZZXNtQZpH86R3kNvhUYrZ2MrTJs+6LGHuu8+4BZEr7XWy9QRo5dlHkIyIsOOS+dTC11NT14pu4jSJPRvlyjev3GFaGaMx7E0LP3Hi3fQHASckA5WfTbYucreoeNuxkbcuKFmgqVZs7g5fsEdx8D+OFEfMZsFO1LX7WeQNg7vhU3auWUIunguqE1FV8hmy6F3u6vza+KaHRRZth2jly7rLASMzI5jV+IJQaC8MaFiSD1HeX6IKA9DgypWybOFtcF1br5V6A8SAiOoWNCPYzkOEARI+LsTzno1EbHOYeP0gt13T04u3tY8LNS79D2gvOi+P6svjEije8ufr3OrJXjzHIX8E40ixzV2WIYO3oshIIQBNHjgDjD862Gh/YH0J0KfMzRsfiB5Kxz0USlnGYwpMSWzmszrTVU4P9U9JAidhi1tgDdqg8A+ffaQWTFHHG9n6eWPiJnOgkJmjpUdJd+bX1ls/yeYqLwekG/8vdL2V5wZl2/NuHA+X6xK4hYBBV8P7fpoFR0KjXV7Swtk4rPYAvB6hS/DXBDYdWaDDdguUeP15i4QI4tT91wTlmo=" #BINTRAY_KEY
+
+before_install:
+  - mkdir $(pwd)/build
+  - docker pull spielhuus/toolchain:latest
+script:
+  - sudo docker run -itd -v $(pwd)/repo:/repo --name conan_build spielhuus/toolchain /bin/bash 
+  - sudo docker exec conan_build /bin/bash -c "git clone https://github.com/spielhuus/conan-ffmpeg.git /repo"
+  - sudo docker exec conan_build /bin/bash -c "conan user -p $BINTRAY_KEY -r conan-cpp squawkcpp"
+  - sudo docker exec conan_build /bin/bash -c "cd /repo && conan export conan-cpp/latest && conan install ffmpeg/3.4.1@conan-cpp/latest --build=ffmpeg && conan upload ffmpeg/3.4.1@conan-cpp/latest --all -r=conan-cpp"
+  - sudo docker rm -f conan_build
+
