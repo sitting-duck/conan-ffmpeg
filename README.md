@@ -1,4 +1,4 @@
-## This repository holds a conan recipe for Boost.Atomic.
+## This repository holds a conan recipe for ffmpeg.
 
 [![Build Status](https://travis-ci.org/spielhuus/conan-ffmpeg.svg?branch=master)](https://travis-ci.org/spielhuus/conan-ffmpeg)
 [ ![Download](https://api.bintray.com/packages/squawkcpp/conan-cpp/ffmpeg%3Aconan-cpp/images/download.svg) ](https://bintray.com/squawkcpp/conan-cpp/ffmpeg%3Aconan-cpp)
