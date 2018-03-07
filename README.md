@@ -11,7 +11,7 @@ The packages generated with this **conanfile** can be found in [Bintray](https:/
 
 ### Basic setup
 
-    $ conan install ffmpeg/3.4.1@conan-cpp/latest
+    $ conan install ffmpeg/3.4.2@conan-cpp/latest
 
 ### Project setup
 
