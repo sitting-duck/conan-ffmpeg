@@ -7,7 +7,7 @@ import shutil
 class FfmpegConan(ConanFile):
     name = "ffmpeg"
     description = "Conan package for FFmpeg on Windows."
-    version = "3.4.1"
+    version = "3.4.2"
     license = "MIT"
     url = "https://bitbucket.org/genvidtech/conan-ffmpeg"
     author = "Robert Leclair (rleclair@genvidtech.com)"
@@ -17,8 +17,8 @@ class FfmpegConan(ConanFile):
                 "arch" : ["x86", "x86_64"] }
     generators = "txt"
     requires = "lame/3.100@conan-cpp/latest"
-    options = {"shared": [True, False], "pic": [True,False], "decoder": "ANY", "encoder": "ANY"}
-    default_options = "shared=False", "pic=False", "lame:shared=False", "decoder=", "encoder="
+    options = {"shared": [True, False], "pic": [True,False], "decoder": "ANY", "encoder": "ANY", "hwaccel": "ANY", "muxer": "ANY", "demuxer": "ANY", "parser": "ANY", "bsf": "ANY", "protocol": "ANY", "filter": "ANY" }
+    default_options = "shared=False", "pic=False", "lame:shared=False", "decoder=all", "encoder=all", "hwaccel=all", "muxer=all", "demuxer=all", "parser=all", "bsf=all", "protocol=disable", "filter=all"
 
     def run_bash(self, cmd):
         if self.settings.os == "Windows":
@@ -52,19 +52,70 @@ class FfmpegConan(ConanFile):
         if self.options.pic:
             configure_cmd += " --enable-pic "
 
-        if self.options.decoder:
+        if self.options.decoder != "all":
             configure_cmd += " --disable-decoders "
             decoder_option = "%s" % self.options.decoder
-            for d in decoder_option.split(","):
-                configure_cmd += " --enable-decoder=" + d
+            if decoder_option != "disable":
+                for d in decoder_option.split(","):
+                    configure_cmd += " --enable-decoder=" + d
 
-        if self.options.encoder:
+        if self.options.encoder != "all":
             configure_cmd += " --disable-encoders "
             encoder_option = "%s" % self.options.encoder
-            for d in encoder_option.split(","):
-                configure_cmd += " --enable-encoder=" + d
+            if encoder_option != "disable":
+                for d in encoder_option.split(","):
+                    configure_cmd += " --enable-encoder=" + d
 
-        configure_cmd += " --disable-devices --disable-programs --enable-libmp3lame --extra-cflags=%s --extra-ldflags=%s --enable-nonfree" % (CPPFLAGS, LDFLAGS)
+        if self.options.hwaccel != "all":
+            configure_cmd += " --disable-hwaccels "
+            hwaccel_option = "%s" % self.options.hwaccel
+            if hwaccel_option != "disable":
+                for d in hwaccel_option.split(","):
+                    configure_cmd += " --enable-hwaccel=" + d
+
+        if self.options.muxer != "all":
+            configure_cmd += " --disable-muxers "
+            muxer_option = "%s" % self.options.muxer
+            if muxer_option != "disable":
+                for d in muxer_option.split(","):
+                    configure_cmd += " --enable-muxer=" + d
+
+        if self.options.demuxer != "all":
+            configure_cmd += " --disable-demuxers "
+            demuxer_option = "%s" % self.options.demuxer
+            if demuxer_option != "disable":
+                for d in demuxer_option.split(","):
+                    configure_cmd += " --enable-demuxer=" + d
+
+        if self.options.parser != "all":
+            configure_cmd += " --disable-parsers "
+            parser_option = "%s" % self.options.parser
+            if parser_option != "disable":
+                for d in parser_option.split(","):
+                    configure_cmd += " --enable-parser=" + d
+
+        if self.options.bsf != "all":
+            configure_cmd += " --disable-bsfs "
+            bsf_option = "%s" % self.options.bsf
+            if bsf_option != "disable":
+                for d in bsf_option.split(","):
+                    configure_cmd += " --enable-bsf=" + d
+
+        if self.options.protocol != "all":
+            configure_cmd += " --disable-protocols "
+            protocol_option = "%s" % self.options.protocol
+            if protocol_option != "disable":
+                for d in protocol_option.split(","):
+                    configure_cmd += " --enable-protocol=" + d
+
+        if self.options.filter != "all":
+            configure_cmd += " --disable-filter "
+            filter_option = "%s" % self.options.filter
+            if filter_option != "disable":
+                for d in filter_option.split(","):
+                    configure_cmd += " --enable-filter=" + d
+
+        configure_cmd += "  --disable-devices --disable-programs --disable-avdevice --disable-doc --disable-network --disable-alsa --enable-libmp3lame --extra-cflags=%s --extra-ldflags=%s --enable-nonfree" % (CPPFLAGS, LDFLAGS)
 
         self.output.info(configure_cmd)
 
@@ -77,13 +128,12 @@ class FfmpegConan(ConanFile):
             self.run_bash("make")
  
     def package(self):
+        self.copy("*.h", dst="include/libavformat", src="ffmpeg/libavformat")
         self.copy("*.h", dst="include/libavcodec", src="ffmpeg/libavcodec")
         self.copy("*.h", dst="include/libavfilter", src="ffmpeg/libavfilter")
-        self.copy("*.h", dst="include/libavformat", src="ffmpeg/libavformat")
-        self.copy("*.h", dst="include/libavutil", src="ffmpeg/libavutil")
-        self.copy("*.h", dst="include/libavcodec", src="ffmpeg/libavcodec")
         self.copy("*.h", dst="include/libswresample", src="ffmpeg/libswresample")
         self.copy("*.h", dst="include/libswscale", src="ffmpeg/libswscale")
+        self.copy("*.h", dst="include/libavutil", src="ffmpeg/libavutil")
         self.copy("*.lib", dst="lib", src="ffmpeg", keep_path=False)
         self.copy("*-*.dll", dst="bin", src="ffmpeg", keep_path=False)
         self.copy("*.so", dst="lib", src="ffmpeg", keep_path=False)

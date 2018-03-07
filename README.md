@@ -18,13 +18,20 @@ The packages generated with this **conanfile** can be found in [Bintray](https:/
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    ffmpeg/3.4.1@conan-cpp/latest
+    ffmpeg/3.4.2@conan-cpp/latest
 
     [options]
     ffmpeg:shared=[True, False]
     ffmpeg:pic=[True,False]
-    ffmpeg:decoder={comma seperated list of decoders, empty for all}
-    ffmpeg:encoder={comma seperated list of encoders, empty for all}
+    ffmpeg:decoder={all|diable|comma seperated list of decoders}
+    ffmpeg:encoder={all|diable|comma seperated list of encoders}
+    ffmpeg:hwaccel={all|diable|comma seperated list of hwaccels}
+    ffmpeg:muxer={all|diable|comma seperated list of muxers}
+    ffmpeg:demuxer={all|diable|comma seperated list of demuxers}
+    ffmpeg:parser={all|diable|comma seperated list of parsers}
+    ffmpeg:bsf={all|diable|comma seperated list of bsfs}
+    ffmpeg:protocol={all|diable|comma seperated list of protocols}
+    ffmpeg:filter={all|diable|comma seperated list of filters}
 
     [generators]
     txt
