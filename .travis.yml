@@ -13,6 +13,6 @@ script:
   - sudo docker run -itd -v $(pwd)/repo:/repo --name conan_build spielhuus/toolchain /bin/bash 
   - sudo docker exec conan_build /bin/bash -c "git clone https://github.com/spielhuus/conan-ffmpeg.git /repo"
   - sudo docker exec conan_build /bin/bash -c "conan user -p $BINTRAY_KEY -r conan-cpp squawkcpp"
-  - sudo docker exec conan_build /bin/bash -c "cd /repo && conan export . conan-cpp/latest && conan install ffmpeg/3.4.1@conan-cpp/latest --build=ffmpeg && conan upload ffmpeg/3.4.1@conan-cpp/latest --all -r=conan-cpp"
+  - sudo docker exec conan_build /bin/bash -c "cd /repo && conan export . conan-cpp/latest && conan install ffmpeg/3.4.2@conan-cpp/latest --build=ffmpeg && conan upload ffmpeg/3.4.2@conan-cpp/latest --all -r=conan-cpp"
   - sudo docker rm -f conan_build
 
