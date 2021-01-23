@@ -1,3 +1,18 @@
+
+As of Feb 2021 verfied to build in Ubuntu 18.04 by Brenly Drake and Ashley Tharp
+
+
+### Go here for Set Me Up Directions: 
+https://bintray.com/squawkcpp/conan-cpp/ffmpeg%3Aconan-cpp
+
+First do this: 
+```
+ conan remote add squawk https://api.bintray.com/conan/squawkcpp/conan-cpp
+ conan user -p 6330a9cf798349c1a3922718b51e0d207f668e47 -r remote sitting-duck
+
+
+```
+
 ## This repository holds a conan recipe for ffmpeg.
 
 Tested by Brenly Drake and Ashley Tharp on Ubuntu 18.04. 
