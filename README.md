@@ -1,6 +1,22 @@
 
 As of Feb 2021 verfied to build in Ubuntu 18.04 by Brenly Drake and Ashley Tharp
 
+On Windows 10 failing on Hp-Omen machine with this error: 
+```
+lame/3.100@conan-cpp/latest: Configuring sources in C:\Users\Ashley\.conan\data\lame\3.100\conan-cpp\latest\source
+
+lame/3.100@conan-cpp/latest: Copying sources to build folder
+lame/3.100@conan-cpp/latest: Building your package in C:\Users\Ashley\.conan\data\lame\3.100\conan-cpp\latest\build\3fb49604f9c2f729b85ba3115852006824e72cab
+lame/3.100@conan-cpp/latest: Generator txt created conanbuildinfo.txt
+lame/3.100@conan-cpp/latest: Calling build()
+lame/3.100@conan-cpp/latest:
+lame/3.100@conan-cpp/latest: ERROR: Package '3fb49604f9c2f729b85ba3115852006824e72cab' build failed
+lame/3.100@conan-cpp/latest: WARN: Build folder C:\Users\Ashley\.conan\data\lame\3.100\conan-cpp\latest\build\3fb49604f9c2f729b85ba3115852006824e72cab
+ERROR: lame/3.100@conan-cpp/latest: Error in build() method, line 44
+        self.visual_build(config_options_string)
+        AttributeError: 'LameConan' object has no attribute 'visual_build'
+
+```
 
 ### Go here for Set Me Up Directions: 
 https://bintray.com/squawkcpp/conan-cpp/ffmpeg%3Aconan-cpp
@@ -8,7 +24,7 @@ https://bintray.com/squawkcpp/conan-cpp/ffmpeg%3Aconan-cpp
 First do this: 
 ```
  conan remote add squawk https://api.bintray.com/conan/squawkcpp/conan-cpp
- conan user -p 6330a9cf798349c1a3922718b51e0d207f668e47 -r remote sitting-duck
+ conan user -p 330a9cf798349c1a3922718b51e0d207f668e47 -r squawk sitting-duck
 
 
 ```
@@ -63,3 +79,4 @@ Note: It is recommended that you run conan install from a build directory and no
 ### License
 [Boost Software License](http://www.boost.org/LICENSE_1_0.txt) - Version 1.0 - August 17th, 2003
 
+6
