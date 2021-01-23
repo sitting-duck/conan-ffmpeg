@@ -1,5 +1,8 @@
 ## This repository holds a conan recipe for ffmpeg.
 
+Tested by Brenly Drake and Ashley Tharp on Ubuntu 18.04. 
+Does not build for MacOS
+
 [![Build Status](https://travis-ci.org/spielhuus/conan-ffmpeg.svg?branch=master)](https://travis-ci.org/spielhuus/conan-ffmpeg)
 [ ![Download](https://api.bintray.com/packages/squawkcpp/conan-cpp/ffmpeg%3Aconan-cpp/images/download.svg) ](https://bintray.com/squawkcpp/conan-cpp/ffmpeg%3Aconan-cpp)
 
