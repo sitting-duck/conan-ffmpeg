@@ -18,6 +18,9 @@ ERROR: lame/3.100@conan-cpp/latest: Error in build() method, line 44
 
 ```
 
+Considering to build ffmpeg on Windows using this instead: 
+https://github.com/conda-forge/ffmpeg-feedstock
+
 ### Go here for Set Me Up Directions: 
 https://bintray.com/squawkcpp/conan-cpp/ffmpeg%3Aconan-cpp
 
